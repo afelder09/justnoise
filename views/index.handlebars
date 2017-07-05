@@ -1,7 +1,16 @@
-<!-- <div class="c-content">
+<div class="c-content">
+  <h1>Welcome to JustNoise</h1>
+  <p>JustNoise is a place for you to share your music taste with your friends in a simple, user focused environment.</p>
+  <h1>All Groups</h1>
   <div class="c-wall">
-    {{#each posts}}
-      {{> post }}
+    <ul>
+    {{#each groups}}
+      <li>
+        <a href="/group/{{_id}}"> {{ name }}</a><p> {{ description }} </p>
+      </li>
     {{/each}}
+    </ul>
+    <a href="/group/new">Create new group</a>
   </div>
-</div> -->
+
+</div>
