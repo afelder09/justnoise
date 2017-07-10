@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="/main.css">
   </head>
   <body>
-    <div class="c-header">
+    <div class="c-header nav">
+      <img src="" alt="">
       <h1><a href="/">JustNoise</a></h1>
       <ul class="nav navbar-nav navbar-right">
     {{#if user}}
@@ -20,10 +21,11 @@
         <li><a href="/auth/spotify">Log in</a></li>
         <li><a href="/signup">Sign up</a></li>
     {{/if}}
-</ul>
+      </ul>
     </div>
-
+    <div class="container">
     {{{ body }}}
+    </div>
 
     <footer>
       <div class="c-content">
