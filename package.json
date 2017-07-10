@@ -19,9 +19,13 @@
   "homepage": "https://github.com/afelder09/webapp_boilerplate#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.3",
     "handlebars": "^4.0.10",
-    "mongoose": "^4.10.8"
+    "mongoose": "^4.10.8",
+    "passport": "^0.3.2",
+    "passport-spotify": "^0.3.1"
   }
 }

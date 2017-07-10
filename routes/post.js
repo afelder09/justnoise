@@ -13,12 +13,18 @@ postRouter.get('/new', ( req, res ) => {
 })
 
 postRouter.post('/new', ( req, res ) => {
-    const newPost = new Post({
-      spotifyURL: req.body.spotifyURL
+  const newPost = new Post({
+    spotifyURL: req.body.spotifyURL
+  })
+  newPost.save()
+  res.redirect('/')
+})
+
+postRouter.get(':id', (req,res) => {
+  Post.findById( {'_id': req.params.id}, ( err, post ) => {
+
     })
-    console.log(newPost)
-    newPost.save()
-    res.redirect('/')
+  res.render( 'post/show', { post: post} )
 })
 
 module.exports = postRouter

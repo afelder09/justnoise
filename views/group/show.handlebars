@@ -9,21 +9,14 @@
     {{#each contributors}}
     <li class="contributor"> {{name}} {{numberOfPoints}}</li>
     {{/each}}
+  </ul>
+  <div class="group_contributors_nav">
+    <ul>
+      <li><a href="">Add member</a></li>
+    </ul>
+  </div>
 </div>
 
-<div class="group_posts">
-  <h2>Group Posts:</h2>
-  <ul>
-  {{#if posts}}
-  {{#each posts}}
-    <li class="post">This is a post
-      <!-- <iframe src=`https://open.spotify.com/embed?uri=spotify:track:5JunxkcjfCYcY7xJ29tLai`
-        frameborder="0" allowtransparency="true">
-      </iframe> -->
-    </li>
-  {{/each}}
-  {{/if}}
-</div>
 
 <div class="group_nav">
   <a href="/post/new">New Post</a>

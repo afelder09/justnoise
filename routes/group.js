@@ -18,7 +18,6 @@ groupRouter.post('/new', ( req, res ) => {
   // render show view for new article
   const newGroup = new Group({
     name: req.body.name,
-    creationDate: req.body.creationDate,
     spotifyURL: req.body.spotifyURL,
     description: req.body.description
   })
@@ -29,14 +28,8 @@ groupRouter.post('/new', ( req, res ) => {
 })
 
 groupRouter.get('/:id', ( req, res ) => {
-  console.log("In the get router")
-  Group.findById( {'_id': req.params.id}, ( err, group ) => {
-    //get all posts for the group
-    const posts = Post.find({}, (err, artists) => {
-
-    })
-  console.log(posts)
-  res.render( 'group/show', { group: group, posts: posts  } )
+  Group.findById( req.params.id, ( err, group ) => {
+    res.render( 'group/show', {group: group})
   })
 })
 
@@ -48,12 +41,9 @@ groupRouter.get('/edit/:id', (req,res) => {
 
 groupRouter.post('/edit/:id', (req,res) => {
   Group.findById( {'_id': req.params.id}, ( err,group ) => {
-    group.name = req.params.name
-    group.description = req.params.description
-    console.log(group)
-    console.log("Group editted")
+    group.name = req.body.name
+    group.description = req.body.description
     group.save()
-
     res.redirect(`/group/${req.params.id}`)
   })
 
