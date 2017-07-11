@@ -25,20 +25,32 @@ appRouter.get('/', ( req , res ) => {
 
 })
 
-// Authenticate with Spotify
-appRouter.get('/auth/spotify',
-  passport.authenticate('spotify'),
-  function(req, res){
-    // The request will be redirected to spotify for authentication, so this
-    // function will not be called.
-  });
+appRouter.get('/accout', ensureAuthenticated, function(req, res){
+  res.render('user/account', {user: req.user})
+})
 
-appRouter.get('/auth/spotify/callback',
-  passport.authenticate('spotify', { failureRedirect: '/login' }),
+appRouter.get('/login', function(req, res){
+  res.render('user/login', {user: req.user})
+})
+
+// Get /auth/spotify
+appRouter.get('/auth/spotify',
+  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
+  function(req, res){
+
+})
+
+appRouter.get('/callback',
+  passport.authenticate('spotify', {failureRedirect: '/login' }),
   function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  });
+    res.redirect('/')
+})
+
+// Simple route middleware to ensure isre is authenticated
+function ensureAuthenticated(req, res, next) {
+  if( req.isAuthenticated()) {return next()}
+  res.redirect('/user/login')
+}
 
 //include in model
 module.exports = appRouter
