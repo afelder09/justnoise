@@ -30,6 +30,7 @@ appRouter.get('/accout', ensureAuthenticated, function(req, res){
 })
 
 appRouter.get('/login', function(req, res){
+  console.log('In login router')
   res.render('user/login', {user: req.user})
 })
 

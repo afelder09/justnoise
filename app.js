@@ -5,8 +5,6 @@ const hbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const methodOverride = require('method-override')
-const swig = require('swig')
-const conslidate = require('consolidate')
 const session = require('express-session')
 const passport = require('passport')
 const SpotifyStrategy = require('passport-spotify').Strategy
@@ -28,7 +26,7 @@ const postRouter = require('./routes/post.js')
 
 // Creating our Application
 const app = express()
-const portNumber = 3014
+const portNumber = 3000
 
 // Set up authentication
 // Define app variables
@@ -51,7 +49,7 @@ passport.use(new SpotifyStrategy({
   clientSecret: appSecret,
   callbackURL: 'http://localhost:' + portNumber + '/callback'
   },
-  function(accessToken, refreshToekn, porifle, done) {
+  function(accessToken, refreshToekn, profile, done) {
     process.nextTick(function() {
       return done(null, profile)
   })
