@@ -7,13 +7,11 @@
   <h2>Contributors:</h2>
   <ul>
     {{#each contributors}}
-    <li class="contributor"> {{name}} {{numberOfPoints}}</li>
+    <li class="contributor"> {{contributorDN}}</li>
     {{/each}}
   </ul>
   <div class="group_contributors_nav">
-    <ul>
-      <li><a href="">Add member</a></li>
-    </ul>
+    <a href="/group/add/{{group._id}}">Add member</a>
   </div>
 </div>
 
@@ -21,9 +19,8 @@
   <h2>Posts:</h2>
 </div>
 
-
 <div class="group_post_nav">
-  <a href="/post/new">New Post</a>
+  <a href="/post/new/{{group._id}}">New Post</a>
   <a href="/group/edit/{{group._id}}">Edit group</a>
-  <a href="group/delete">Delete Group</a>
+  <a href="/group/delete/{{group._id}}">Delete Group</a>
 </div>

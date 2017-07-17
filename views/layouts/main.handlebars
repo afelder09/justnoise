@@ -15,7 +15,7 @@
         <li>
           <a href="/users/">Users</a>
         </li>
-        <li> <a href="/users/{{user.username}}"> Hello, {{user.username}} </a> </li>
+        <li> <a href="/account"> Hello, {{user.displayName}} </a> </li>
         <li><a href="/logout">Log out</a></li>
     {{else}}
         <li><a href="/auth/spotify">Log in</a></li>
@@ -27,10 +27,14 @@
     </div>
 
     <footer>
-      <div class="c-content container">
+      <div class="c-content container footer">
         Copyright 2017
+<iframe src="https://open.spotify.com/embed?uri=spotify:track:78lgmZwycJ3nzsdgmPPGNx&view=coverart&theme=white" frameborder="0" allowtransparency="true"></iframe>                frameborder="0" allowtransparency="true"></iframe>
       </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+      <script src="/getAuthorizationToken.js"></script>
+      <script src="/search.js"></script>
+      <script src="/main.js"></script>
     </footer>
-    <script src="/main.js"></script>
   </body>
 </html>

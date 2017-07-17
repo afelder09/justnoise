@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const groupSchema = new Schema({
   groupID: String,
   name: String,
-  creationDate: Date,
+  dateCreated: Date,
   spotifyURL: String,
   description: String
 })
