@@ -29,7 +29,7 @@ const userRouter = require('./routes/user.js')
 
 // Creating our Application
 const app = express()
-const portNumber = 3000
+const portNumber = process.env.PORT || 3000
 let accessToken = ""
 let refreshToken = ""
 
