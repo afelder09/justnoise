@@ -12,7 +12,7 @@ const SpotifyStrategy = require('passport-spotify').Strategy
 const request = require('request');
 
 // Connect  to our Mongo database, using Mongoose and include our models
-mongoose.connect('mongodb://admin:Password1$@cluster0-shard-00-00-32pjn.mongodb.net:27017,cluster0-shard-00-01-32pjn.mongodb.net:27017,cluster0-shard-00-02-32pjn.mongodb.net:27017/justnoise?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin')
+mongoose.connect('mongodb://admin:admin@ds141960.mlab.com:41960/justnoise')
 
 // Require our models
 const Contributor = require('./models/contributor.js')
