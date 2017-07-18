@@ -3,7 +3,7 @@ const express = require('express')
 const passport = require('passport')
 const request = require('request')
 
-// Require necessary models
+// Require necessary models 
 // const Contributor = require('../models/contributor.js')
 const Group = require('../models/group.js')
 const Note = require('../models/note.js')
@@ -18,11 +18,12 @@ const appRouter = express.Router()
 appRouter.get('/', ( req , res ) => {
   // index route
   // list every group
+  console.log(req.user)
   Group.find({}, ( err, groups ) => {
     res.render('index', { groups: groups, user: req.user })
   })
 
-
+  console.log("Session: ", req.session.token)
 })
 
 appRouter.get('/account', ensureAuthenticated, function(req, res){
@@ -37,35 +38,15 @@ appRouter.get('/auth/spotify',
 
 // Callback that also creates a new user object if the user hasnt logged in before
 appRouter.get('/callback',
-  passport.authenticate('spotify', {failureRedirect: '/login' }),
+  passport.authenticate('spotify', { failureRedirect: '/login' }),
   function(req, res) {
-  User.findOne( {username: req.user.username}, (err, user) => {
-    if( user == null ){
-      //create new user
-      const newUser = new User({
-        username: req.user.username,
-        displayName: req.user.displayName,
-        profileURL: req.user.profileUrl
-      })
-      newUser.save()
-      console.log('Welcome new user')
-    }
-    else{
-      console.log( req.user)
-      user.username = req.user.username,
-      user.displayName = req.user.displayName,
-      user.profileURL = req.user.profileUrl
-      console.log("User updated")
-      user.save()
-    }
-  })
-
-  res.redirect('/')
+    // Successful authentication, redirect home.
+    res.redirect('/')
 })
 
 appRouter.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
+  req.logout()
+  res.redirect('/')
 });
 
 // Get authorization token

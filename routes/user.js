@@ -10,9 +10,7 @@ const userRouter = express.Router()
 // Specify routes
 userRouter.get('/', ( req, res) => {
   User.find({}, ( err, users ) => {
-    console.log(users)
     res.render('user/allUsers', {users: users, user: req.user})
-
   })
 })
 

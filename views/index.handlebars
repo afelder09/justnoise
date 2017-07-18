@@ -1,12 +1,13 @@
 <div class="c-content jumbotron">
   <h1>Welcome to JustNoise</h1>
   <p>JustNoise is a place for you to share your music taste with your friends in a simple, user focused environment.</p>
-  <h1>All Groups</h1>
+  <h2>All Groups</h2>
   <div class="c-wall">
     <ul>
     {{#each groups}}
       <li>
-        <a href="/group/{{_id}}"> Group: {{ name }}</a><p> {{ description }} </p>
+        <h3><a href="/group/{{_id}}"> {{ name }}</a></h3>
+        <p> {{ description }} </p>
       </li>
     {{/each}}
     </ul>

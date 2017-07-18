@@ -2,9 +2,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const postSchema = new Schema({
-  postID: String,
   datePosted: Date,
   spotifyURL: String,
+  username: String,
+  groupID: String,
   numberOfNotes: Number,
   comment: String
 })

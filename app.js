@@ -49,21 +49,6 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj)
 })
 
-// Use the spotifyStrategy within passport
-// Note: Callback URI must be specified on the Spotify website
-passport.use(new SpotifyStrategy({
-  clientID: appKey,
-  clientSecret: appSecret,
-  callbackURL: callbackURL
-  },
-  function(accessToken, refreshToekn, profile, done) {
-    accessToken = accessToken
-    refreshToken = refreshToken
-    process.nextTick(function() {
-      return done(null, profile)
-  })
-}))
-
 // Registeri ng and use our template engine (handlebars)
 app.engine('handlebars', hbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -72,7 +57,11 @@ app.set('view engine', 'handlebars')
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(methodOverride())
-app.use(session({ secret: 'keyboard cat' }))
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
 
 // Initialize Passport
 app.use(passport.initialize())
@@ -81,13 +70,52 @@ app.use(passport.session())
 // Serving static files (like css) dafd
 app.use(express.static('public'))
 
+// Use the spotifyStrategy within passport
+// Capture the accessToken and RefreshToken within the session
+// Note: Callback URI must be specified on the Spotify website
+passport.use(new SpotifyStrategy({
+    clientID: appKey,
+    clientSecret: appSecret,
+    callbackURL: callbackURL
+  },
+  function(accessToke, refreshToke, profile, done) {
+    app.use(function (req, res, next) {
+      User.findOne( {username: req.user.username}, (err, user) => {
+        if( user == null ){
+          //create new user
+          const newUser = new User({
+            username: req.user.username,
+            displayName: profile.displayName,
+            profileUrl: profile.profileUrl,
+            token: accessToke,
+            rToken: refreshToke,
+          })
+          newUser.save()
+          console.log('Welcome new user')
+        }
+        else{
+          user.username = req.user.username
+          user.displayName = profile.displayName
+          user.profileUrl = profile.profileUrl
+          user.token = accessToke
+          user.rToken = refreshToke
+          console.log("User updated")
+          user.save()
+        }
+      })
+      next()
+    })
+
+    process.nextTick(function() {
+      return done(null, profile)
+  })
+}))
+
 // Routes application routes (i.e. controller)
 app.use('/', appRouter)
 app.use('/group', groupRouter)
 app.use('/post', postRouter)
 app.use('/users', userRouter)
-
-// Spotify API Setup
 
 // Listen on port 3000
 app.listen( portNumber, function() {

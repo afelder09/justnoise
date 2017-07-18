@@ -5,7 +5,9 @@ const userSchema = new Schema({
   username: String,
   displayName: String,
   profileUrl: String,
-  totalNotes: Number
+  totalNotes: Number,
+  token: String,
+  rToken: String
 })
 
 const User = mongoose.model( 'User', userSchema )

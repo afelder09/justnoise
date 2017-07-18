@@ -29,6 +29,9 @@ groupRouter.post('/new', ( req, res ) => {
   // console.log(newGroup)
   newGroup.save()
 
+  // create new playlist
+  // Spotify endpoint: https://developer.spotify.com/web-api/create-playlist/
+
   // add creator as the contributor
   const newContrib = new Contributor({
     groupID: newGroup._id,
@@ -46,8 +49,8 @@ groupRouter.get('/:id', ( req, res ) => {
   Group.findById( req.params.id, ( err, group ) => {
     Contributor.find( {groupID: group._id}, (err, contributors) => {
       Post.find( {}, (err, posts) => {
-        console.log("in get group route")
-        console.log(contributors)
+        console.log("User: ", req.user)
+        console.log("Session: ", req.session)
         res.render( 'group/show', {group: group, contributors: contributors, posts: posts, user: req.user})
       })
     })
@@ -56,7 +59,7 @@ groupRouter.get('/:id', ( req, res ) => {
 
 groupRouter.get('/add/:id', (req,res) => {
   User.find( {}, (err, users) => {
-    res.render( 'group/add', {users, users, user: req.user})
+    res.render( 'group/add', {users: users, user: req.user})
   })
 })
 
@@ -74,6 +77,7 @@ groupRouter.post('/edit/:id', (req,res) => {
   Group.findById( {'_id': req.params.id}, ( err,group ) => {
     group.name = req.body.name
     group.description = req.body.description
+    group.spotifyURL = req.body.spotifyURL
     group.save()
     res.redirect(`/group/${req.params.id}`)
   })
