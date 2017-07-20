@@ -1,5 +1,12 @@
 <ul>
   {{#each users}}
-  <li>Display name: <a href=" {{ profileUrl }}">{{ displayName }}</a> Username: {{ username}} Profile: {{ profileUrl}} Token: {{ token }} Refresh Token: {{rToken}}</li>
+  <li>
+    Display name: <a href=" {{ profileUrl }}">{{ displayName }}</a>
+    Username: {{ username}}
+    Profile: {{ profileUrl}}
+    Token: {{ token }}
+    Refresh Token: {{rToken}}
+    <a href="/user/delete/{{_id}}">Delete User</a>
+  </li>
   {{/each}}
 </ul>

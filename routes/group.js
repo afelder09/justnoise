@@ -1,5 +1,15 @@
 // Require express
 const express = require('express')
+const request = require('request')
+const settings = require('../settings.js')
+
+// Setup Spotify api
+var SpotifyWebApi = require('spotify-web-api-node');
+var spotifyApi = new SpotifyWebApi({
+  clientId : settings.appKey,
+  clientSecret : settings.appSecret,
+  redirectUri : settings.callbackURL
+})
 
 // Require all necessary models
 const Group = require('../models/group.js')
@@ -12,10 +22,22 @@ const groupRouter = express.Router()
 
 // Sepcify get, put, Example, and delete routes
 groupRouter.get('/new', ( req, res ) => {
+
   res.render('group/new', {user: req.user})
 })
 
 groupRouter.post('/new', ( req, res ) => {
+  // create new playlist
+  // Spotify endpoint: https://developer.spotify.com/web-api/create-playlist/
+  spotifyApi.setAccessToken(req.session.passport.user.token);
+  // Add tracks to a playlist
+  spotifyApi.addTracksToPlaylist('596f6b4f63d69d3701102598', '5qlsewlAfwfs7oM0hE5NyU', ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"])
+    .then(function(data) {
+      console.log('Added tracks to playlist!');
+    }, function(err) {
+      console.log('Something went wrong!', err);
+    });
+
   // create a new article in the DB
   // render show view for new article
   const newGroup = new Group({
@@ -29,8 +51,6 @@ groupRouter.post('/new', ( req, res ) => {
   // console.log(newGroup)
   newGroup.save()
 
-  // create new playlist
-  // Spotify endpoint: https://developer.spotify.com/web-api/create-playlist/
 
   // add creator as the contributor
   const newContrib = new Contributor({
@@ -47,10 +67,8 @@ groupRouter.post('/new', ( req, res ) => {
 
 groupRouter.get('/:id', ( req, res ) => {
   Group.findById( req.params.id, ( err, group ) => {
-    Contributor.find( {groupID: group._id}, (err, contributors) => {
+      Contributor.find( {groupID: group._id}, (err, contributors) => {
       Post.find( {}, (err, posts) => {
-        console.log("User: ", req.user)
-        console.log("Session: ", req.session)
         res.render( 'group/show', {group: group, contributors: contributors, posts: posts, user: req.user})
       })
     })

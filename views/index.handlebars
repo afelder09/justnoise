@@ -5,10 +5,7 @@
   <div class="c-wall">
     <ul>
     {{#each groups}}
-      <li>
-        <h3><a href="/group/{{_id}}"> {{ name }}</a></h3>
-        <p> {{ description }} </p>
-      </li>
+      {{> 'group-tease'}}
     {{/each}}
     </ul>
     <a href="/group/new">Create new group</a>

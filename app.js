@@ -29,16 +29,9 @@ const userRouter = require('./routes/user.js')
 
 // Creating our Application
 const app = express()
-const portNumber = process.env.PORT || 3000
-let accessToken = ""
-let refreshToken = ""
 
-// Set up authentication
-// Define app variables
-const appKey = '82535849ae2f4181a064eea7b1e416f4';
-const appSecret = '12b6be7a85c0494792efff2187174acc';
-const callbackURL = 'http://localhost:' + portNumber + '/callback'
-const scope = 'user-read-email'
+// Include app Settings
+const settings = require('./settings.js')
 
 // Passport session setup
 passport.serializeUser(function(user,done) {
@@ -71,45 +64,42 @@ app.use(passport.session())
 app.use(express.static('public'))
 
 // Use the spotifyStrategy within passport
-// Capture the accessToken and RefreshToken within the session
+// Capture the accessToken and RefreshToken  within the session
 // Note: Callback URI must be specified on the Spotify website
 passport.use(new SpotifyStrategy({
-    clientID: appKey,
-    clientSecret: appSecret,
-    callbackURL: callbackURL
+    clientID: settings.appKey,
+    clientSecret: settings.appSecret,
+    callbackURL: settings.callbackURL
   },
-  function(accessToke, refreshToke, profile, done) {
-    app.use(function (req, res, next) {
-      User.findOne( {username: req.user.username}, (err, user) => {
-        if( user == null ){
-          //create new user
-          const newUser = new User({
-            username: req.user.username,
-            displayName: profile.displayName,
-            profileUrl: profile.profileUrl,
-            token: accessToke,
-            rToken: refreshToke,
-          })
-          newUser.save()
-          console.log('Welcome new user')
-        }
-        else{
-          user.username = req.user.username
-          user.displayName = profile.displayName
-          user.profileUrl = profile.profileUrl
-          user.token = accessToke
-          user.rToken = refreshToke
-          console.log("User updated")
-          user.save()
-        }
-      })
-      next()
+  function(accessToken, refreshToken, profile, done) {
+    User.findOne( {username: profile.username}, (err, user) => {
+      if( user == null ){
+        //create new user
+        const newUser = new User({
+          username: profile.username,
+          displayName: profile.displayName,
+          profileUrl: profile.profileUrl,
+          token: accessToken,
+          rToken: refreshToken,
+        })
+        newUser.save()
+        console.log('Welcome new user')
+      }
+      else{
+        user.username = user.username
+        user.displayName = profile.displayName
+        user.profileUrl = profile.profileUrl
+        user.token = accessToken
+        user.rToken = refreshToken
+        console.log("User updated")
+        user.save()
+      }
+      return done(err, user)
     })
+  }))
 
-    process.nextTick(function() {
-      return done(null, profile)
-  })
-}))
+// Spotify API setup
+var SpotifyWebApi = require('spotify-web-api-node');
 
 // Routes application routes (i.e. controller)
 app.use('/', appRouter)
@@ -118,6 +108,6 @@ app.use('/post', postRouter)
 app.use('/users', userRouter)
 
 // Listen on port 3000
-app.listen( portNumber, function() {
-  console.log( 'listening on ' + portNumber )
+app.listen( settings.portNumber, function() {
+  console.log( 'listening on ' + settings.portNumber )
 })

@@ -32,7 +32,9 @@
     "mongoose": "^4.10.8",
     "passport": "^0.3.2",
     "passport-spotify": "^0.3.1",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "spotify-web-api-js": "^0.22.0",
+    "spotify-web-api-node": "^2.4.0"
   },
   "engines": {
     "node": "6.10.2"

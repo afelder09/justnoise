@@ -14,4 +14,12 @@ userRouter.get('/', ( req, res) => {
   })
 })
 
+userRouter.get('/delete/:id', (req,res) => {
+  User.findOne( {'_id':req.params.id}, (err, user) => {
+    user.remove(function(){
+      res.redirect('user/allUsers')
+    })
+  })
+})
+
 module.exports = userRouter

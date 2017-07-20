@@ -2,8 +2,9 @@
 const express = require('express')
 const passport = require('passport')
 const request = require('request')
+const settings = require('../settings.js')
 
-// Require necessary models 
+// Require necessary models
 // const Contributor = require('../models/contributor.js')
 const Group = require('../models/group.js')
 const Note = require('../models/note.js')
@@ -18,12 +19,9 @@ const appRouter = express.Router()
 appRouter.get('/', ( req , res ) => {
   // index route
   // list every group
-  console.log(req.user)
   Group.find({}, ( err, groups ) => {
     res.render('index', { groups: groups, user: req.user })
   })
-
-  console.log("Session: ", req.session.token)
 })
 
 appRouter.get('/account', ensureAuthenticated, function(req, res){
@@ -32,15 +30,15 @@ appRouter.get('/account', ensureAuthenticated, function(req, res){
 
 // Get /auth/spotify
 appRouter.get('/auth/spotify',
-  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
+  passport.authenticate('spotify', {scope: settings.scope, showDialog: false}),
   function(req, res){
 })
 
 // Callback that also creates a new user object if the user hasnt logged in before
 appRouter.get('/callback',
-  passport.authenticate('spotify', { failureRedirect: '/login' }),
+  passport.authenticate('spotify', { failureRedirect: '/' }),
   function(req, res) {
-    // Successful authentication, redirect home.
+    // console.log("Access token: ", req.session.passport.user.token)
     res.redirect('/')
 })
 
@@ -51,7 +49,6 @@ appRouter.get('/logout', function(req, res){
 
 // Get authorization token
 appRouter.get('/authorize', ( req, res) => {
-  console.log("Test")
   var request = new XMLHttpRequest()
 
   request.addEventListener('load', handleRequest)

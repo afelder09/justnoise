@@ -1,5 +1,14 @@
 // Require express
 const express = require('express')
+const settings = require('../settings.js')
+
+// Setup Spotify api
+var SpotifyWebApi = require('spotify-web-api-node');
+var spotifyApi = new SpotifyWebApi({
+  clientId : settings.appKey,
+  clientSecret : settings.appSecret,
+  redirectUri : settings.callbackURL
+})
 
 // Require all necessary models
 const Post = require('../models/post.js')
@@ -28,9 +37,12 @@ postRouter.post('/new/:id', ( req, res ) => {
     newPost.save()
 
     // Add track to group playlist
-    User.findById( {'username': req.user.username}, ( err,user ) => {
-      const url = `https://api.spotify.com/v1/users/${user.spotifyID}/playlists`
-    })
+    spotifyApi.getUserPlaylists('ansonfelder')
+      .then(function(data) {
+        console.log('User playlists', data);
+      }, function(err) {
+        console.error(err);
+      });
 
     // Redirect back to group page
     res.redirect(`/group/${req.params.id}`)
