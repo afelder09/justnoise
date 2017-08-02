@@ -1,10 +1,11 @@
 {
-  "name": "webapp_boilerplate",
+  "name": "justNoise",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -19,9 +20,23 @@
   "homepage": "https://github.com/afelder09/webapp_boilerplate#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "bower": "^1.8.0",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.3",
     "handlebars": "^4.0.10",
-    "mongoose": "^4.10.8"
+    "http": "0.0.0",
+    "machinepack-spotify": "0.0.3",
+    "method-override": "^2.3.9",
+    "mongoose": "^4.10.8",
+    "passport": "^0.3.2",
+    "passport-spotify": "^0.3.1",
+    "request": "^2.81.0",
+    "spotify-web-api-js": "^0.22.0",
+    "spotify-web-api-node": "^2.4.0"
+  },
+  "engines": {
+    "node": "6.10.2"
   }
 }

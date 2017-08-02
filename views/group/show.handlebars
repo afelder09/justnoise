@@ -7,26 +7,25 @@
   <h2>Contributors:</h2>
   <ul>
     {{#each contributors}}
-    <li class="contributor"> {{name}} {{numberOfPoints}}</li>
+    <li class="contributor"> {{contributorDN}}</li>
     {{/each}}
+  </ul>
+  <div class="group_contributors_nav">
+    <a href="/group/add/{{group._id}}">Add member</a>
+  </div>
+</div>
+
+<div class="group_playlist">
+  <h2>Playlist</h2>
+  <iframe src="https://open.spotify.com/embed?uri=spotify:track:5JunxkcjfCYcY7xJ29tLai" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
 </div>
 
 <div class="group_posts">
-  <h2>Group Posts:</h2>
-  <ul>
-  {{#if posts}}
-  {{#each posts}}
-    <li class="post">This is a post
-      <!-- <iframe src=`https://open.spotify.com/embed?uri=spotify:track:5JunxkcjfCYcY7xJ29tLai`
-        frameborder="0" allowtransparency="true">
-      </iframe> -->
-    </li>
-  {{/each}}
-  {{/if}}
+  <h2>Posts:</h2>
 </div>
 
-<div class="group_nav">
-  <a href="/post/new">New Post</a>
+<div class="group_post_nav">
+  <a href="/post/new/{{group._id}}">New Post</a>
   <a href="/group/edit/{{group._id}}">Edit group</a>
-  <a href="group/delete">Delete Group</a>
+  <a href="/group/delete/{{group._id}}">Delete Group</a>
 </div>

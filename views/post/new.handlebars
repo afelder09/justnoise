@@ -1,12 +1,16 @@
 <div class="c-content">
-  <h2>Submit a new post:</h2>
-  <form class="c-form" action="/post/new" method="post">
-      <div class="c-form__item">
-        <h4 class="c-form__title">Cpoy and past the Spotify URI:</h4>
-        <input type="url" name="spotifyURL" value="spotify:track:0Ws8D3EWUDgY962Xftb0h5">
-      </div>
-      <div class="c-form__item">
-        <button type="submit" name="submit">Post!</button>
-      </div>
+  <h2>Search for a song</h2>
+
+  <form class="new-track-search">
+    <label for="search"></label>
+    <input type="text" name="trackSearch" placeholder="Track" value="">
+    <button type="submit" name="trackSearch">Search</button>
+
+    <input type="hidden" name="group" value="{{groupID}}">
   </form>
+
+  <div class="searchResultsApp">
+  </div>
+
+
 </div>

@@ -1,0 +1,14 @@
+<div class="group_posts">
+  <h2>Group Posts:</h2>
+  <ul>
+  {{#if posts}}
+  {{#each posts}}
+    <li class="post"><a href="post/{{_id}}">This is a post</a>
+      <!-- <iframe src=`https://open.spotify.com/embed?uri=spotify:track:5JunxkcjfCYcY7xJ29tLai`
+        frameborder="0" allowtransparency="true">
+      </iframe> -->
+    </li>
+  {{/each}}
+  {{/if}}
+  </ul>
+</div>
