@@ -2,8 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const contributorSchema = new Schema({
-  contributorUN: String,
-  contributorDN: String,
+  userID: String,
   groupID: String,
   groupNotes: Number,
   dateJoined: Date,

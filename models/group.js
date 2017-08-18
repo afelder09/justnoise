@@ -5,7 +5,7 @@ const groupSchema = new Schema({
   groupID: String,
   name: String,
   dateCreated: Date,
-  spotifyURL: String,
+  playlistID: String,
   description: String
 })
 

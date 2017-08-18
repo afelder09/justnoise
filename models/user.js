@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-  username: String,
+  userID: String,
   displayName: String,
-  profileUrl: String,
+  profileURL: String,
   totalNotes: Number,
   token: String,
   rToken: String
