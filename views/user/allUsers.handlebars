@@ -1,12 +1,13 @@
 <ul>
   {{#each users}}
   <li>
-    Display name: <a href=" {{ profileUrl }}">{{ displayName }}</a>
-    Username: {{ username}}
-    Profile: {{ profileUrl}}
+    Display name: <a href="/user/ansonfelder">{{ displayName }}</a>
+    User ID: {{ _id }}
+    Spotify Profile: {{ profileURL }}
     Token: {{ token }}
     Refresh Token: {{rToken}}
     <a href="/user/delete/{{_id}}">Delete User</a>
   </li>
   {{/each}}
+  <button>Show current user</button>
 </ul>

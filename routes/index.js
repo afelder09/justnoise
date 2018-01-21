@@ -64,7 +64,7 @@ appRouter.get('/trackSearch', (req,res) => {
   console.log("Searching for tracks")
 })
 
-// Simple route middleware to ensure isre is authenticated
+// Simple route middleware to ensure user is authenticated
 function ensureAuthenticated(req, res, next) {
   if( req.isAuthenticated()) {return next()}
   res.redirect('/user/login')

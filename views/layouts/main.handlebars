@@ -13,6 +13,8 @@
       <ul class="nav navbar-nav navbar-right">
     {{#if user}}
         <li>
+          <button>Show user</button>
+        <li>
           <a href="/users/">Users</a>
         </li>
         <li> <a href="/account"> Hello, {{user.displayName}} </a> </li>
@@ -30,9 +32,9 @@
       <div class="c-content container footer">
       {{!-- <iframe src="https://open.spotify.com/embed?uri=spotify:track:5JunxkcjfCYcY7xJ29tLai" frameborder="0" allowtransparency="true"></iframe>            --}}
       <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-      <script src="/getAuthorizationToken.js"></script>
+      {{!--<script src="/getAuthorizationToken.js"></script>
       <script src="/search.js"></script>
-      <script src="/main.js"></script>
+      <script src="/main.js"></script> --}}
     </footer>
   </body>
 </html>

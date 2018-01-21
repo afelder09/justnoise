@@ -10,9 +10,10 @@ const passport = require('passport')
 const http = require('http')
 const SpotifyStrategy = require('passport-spotify').Strategy
 const request = require('request');
+const settings = require('./settings.js')
 
 // Connect  to our Mongo database, using Mongoose and include our models
-mongoose.connect('mongodb://admin:admin@ds141960.mlab.com:41960/justnoise')
+mongoose.connect(settings.database)
 
 // Require our models
 const Contributor = require('./models/contributor.js')
@@ -30,8 +31,6 @@ const userRouter = require('./routes/user.js')
 // Creating our Application
 const app = express()
 
-// Include app Settings
-const settings = require('./settings.js')
 
 // Passport session setup
 passport.serializeUser(function(user,done) {
@@ -100,6 +99,21 @@ passport.use(new SpotifyStrategy({
 
 // Spotify API setup
 var SpotifyWebApi = require('spotify-web-api-node');
+
+// credentials are optional
+var spotifyApi = new SpotifyWebApi({
+  clientID: settings.appKey,
+  clientSecret: settings.appSecret,
+  callbackURL: settings.callbackURL
+})
+
+// Get Elvis' albums
+spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE')
+  .then(function(data) {
+    console.log('Artist albums', data.body);
+  }, function(err) {
+    console.error(err);
+  });
 
 // Routes application routes (i.e. controller)
 app.use('/', appRouter)

@@ -1,2 +1,5 @@
-<p>ID: {{ user.id }}</p>
+<p>ID: {{ user._id }}</p>
+<p>Name: {{ user.displayName }}</p>
 <p>Profile: <a href=" {{ user.profileUrl }}">{{ user.profileUrl }}</a></p>
+<p>Token:  {{ user.token }} </p>
+<p>Refresh Token: {{ user.rToken }} </p>

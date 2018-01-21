@@ -11,7 +11,14 @@ const userRouter = express.Router()
 userRouter.get('/', ( req, res) => {
   User.find({}, ( err, users ) => {
     res.render('user/allUsers', {users: users, user: req.user})
+    console.log(req.user)
   })
+})
+
+userRouter.get('user/:id', (req,res) => {
+  User.findOne( {'_id':req.params.id}. err, user) => {
+    res.render('user/account', {user: user})
+  }
 })
 
 userRouter.get('/delete/:id', (req,res) => {

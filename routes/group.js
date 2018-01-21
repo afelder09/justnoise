@@ -22,7 +22,6 @@ const groupRouter = express.Router()
 
 // Sepcify get, put, Example, and delete routes
 groupRouter.get('/new', ( req, res ) => {
-
   res.render('group/new', {user: req.user})
 })
 
