@@ -1,0 +1,32 @@
+{
+  "tracks": [
+    {
+      "id": "cypress_track_001",
+      "name": "Cypress Test Song",
+      "artists": [{ "name": "Cypress Artist" }],
+      "album": {
+        "name": "Cypress Album",
+        "images": [
+          { "url": "https://i.scdn.co/image/cypress_test.jpg", "width": 300, "height": 300 }
+        ]
+      },
+      "preview_url": null,
+      "external_urls": { "spotify": "https://open.spotify.com/track/cypress_track_001" },
+      "duration_ms": 194000
+    },
+    {
+      "id": "cypress_track_002",
+      "name": "Another Cypress Song",
+      "artists": [{ "name": "Cypress Artist" }, { "name": "Collab" }],
+      "album": {
+        "name": "Cypress Album Two",
+        "images": [
+          { "url": "https://i.scdn.co/image/cypress_test2.jpg", "width": 300, "height": 300 }
+        ]
+      },
+      "preview_url": null,
+      "external_urls": { "spotify": "https://open.spotify.com/track/cypress_track_002" },
+      "duration_ms": 240000
+    }
+  ]
+}

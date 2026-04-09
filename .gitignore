@@ -35,9 +35,19 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# .env.test has only public local-dev constants — safe to commit
+!.env.test
 
 # vercel
 .vercel
+
+# supabase local state
+supabase/.branches
+supabase/.temp
+
+# cypress artifacts
+cypress/screenshots
+cypress/videos
 
 # typescript
 *.tsbuildinfo

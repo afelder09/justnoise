@@ -172,7 +172,7 @@ drop policy if exists "groups_insert" on public.groups;
 drop policy if exists "groups_update" on public.groups;
 drop policy if exists "groups_delete" on public.groups;
 create policy "groups_select" on public.groups for select
-  using (auth.uid() = creator_id or public.is_group_member(id));
+  using (auth.uid() is not null);
 create policy "groups_insert" on public.groups for insert
   with check (auth.uid() = creator_id);
 create policy "groups_update" on public.groups for update

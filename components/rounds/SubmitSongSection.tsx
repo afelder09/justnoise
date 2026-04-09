@@ -16,6 +16,7 @@ interface SubmitSongSectionProps {
 export default function SubmitSongSection({ roundId, userId, existingSubmission }: SubmitSongSectionProps) {
   const router = useRouter()
   const [selectedTrack, setSelectedTrack] = useState<SpotifyTrack | null>(null)
+  const [isChanging, setIsChanging] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [submitted, setSubmitted] = useState(false)
@@ -50,10 +51,11 @@ export default function SubmitSongSection({ roundId, userId, existingSubmission 
     }
 
     setSubmitted(true)
+    setIsChanging(false)
     router.refresh()
   }
 
-  if (submitted || (existingSubmission && !selectedTrack)) {
+  if (submitted || (existingSubmission && !selectedTrack && !isChanging)) {
     const display = selectedTrack ?? (existingSubmission ? {
       id: existingSubmission.spotify_track_id,
       name: existingSubmission.track_name,
@@ -81,7 +83,7 @@ export default function SubmitSongSection({ roundId, userId, existingSubmission 
           </div>
         )}
         <button
-          onClick={() => setSelectedTrack(null)}
+          onClick={() => { setSelectedTrack(null); setIsChanging(true) }}
           className="text-sm text-zinc-400 hover:text-zinc-100 underline underline-offset-2"
         >
           Change submission
@@ -115,7 +117,7 @@ export default function SubmitSongSection({ roundId, userId, existingSubmission 
               {submitting ? 'Submitting…' : existingSubmission ? 'Update submission' : 'Submit song'}
             </button>
             <button
-              onClick={() => setSelectedTrack(null)}
+              onClick={() => { setSelectedTrack(null); setIsChanging(false) }}
               className="rounded-lg border border-zinc-700 px-4 py-2.5 text-sm text-zinc-300 hover:border-zinc-500 transition-colors"
             >
               Cancel
